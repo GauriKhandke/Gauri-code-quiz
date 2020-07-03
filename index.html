@@ -1,0 +1,147 @@
+<!-- Document Type :HTML-->
+<!DOCTYPE html> 
+
+<!-- Start HTML, Language : English-United States-->
+<html lang="en-us"> 
+
+    <!--Head: Contains meta info-->
+    <head>  
+        
+        <!-- Required meta tags -->
+        <!--Character Encoding : UTF-8 -->
+        <meta charset="UTF-8" />  
+        
+        <!-- Setting The Viewport for Responsive web design -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        
+        <!-- Link to the external CSS file -->
+        <link rel="stylesheet" href="./css/style.css"> 
+
+        <!--Title of the Website/Main page-->
+        <title>Code Quiz</title> 
+    
+    <!--End of Head-->
+    </head> 
+
+    <!-- Bagin Body -->
+    <body>
+
+         <!-- Begin Header -->
+    <header>   
+        
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            
+                <a class="nav-link" href="#">High Scores</a>
+
+                <span class="ml-auto" id="timer"></span>
+
+        <!-- End Navigation bar -->
+        </nav>
+    
+    <!-- End Header -->
+    </header> 
+
+    <!-- Begin main -->
+    <main>
+            
+        <br>
+          
+          <!-- Begin container -->
+          <div class="container">
+            
+            <!-- row 1 -->
+            <div class="row">
+                
+                <!-- row 1 col 1 -->
+                <div class="col-md-1">
+
+                </div>
+
+                <!-- row 1 col 2 -->
+                <div class="col-md-10">
+
+                    <!-- subrow 2 -->
+                    <div class="row">
+
+                        <!-- subrow 2 col 1 -->
+                        <div class="col-md-12">
+
+                            <!-- Begin card -->
+                            <div class="card shadow rounded border-info"> 
+                                
+                                <!-- Begin body -->
+                                <div class="card-body">
+                                    
+                                    <!-- card title -->
+                                    <h2 class="card-title mb-4 text-info text-center" id="title">Coding Quiz Challenge</h2>
+                            
+                                    <hr class="line">
+                                    
+                                    <div class="row">
+                                        
+                                        <div class="col-md-1">
+
+                                        </div>
+
+
+                                        <div class="col-md-10">
+                                            <div id="mainContent">
+                                                <h5 class="text-center">
+                                                    Try to answer the following Javascript fundamental questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!  
+                                                </h5>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn bg-primary text-white rounded-pill mb-2" id="startQuiz">Start Quiz</button>
+                                                </div>
+                                            </div>
+                                            <div id = "quizContent"></div>
+                                            <div id = "score"></div>
+                                        
+
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    <div id="answer">
+                                        <!-- <hr class="line"> -->
+                                    </div>    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- row 1 col 3 -->
+                <div class="col-md-1">
+
+                </div>
+                
+            </div>
+          </div>
+        <br>
+    <!-- End main -->
+    </main>
+
+
+    <!-- link to external javascript -->
+    <script src="./js/questions.js"></script>
+    <script src="./js/script.js"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        
+    <!-- Bootstrap Javascript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+    <!-- End Body -->
+    </body>
+    
+</html>
