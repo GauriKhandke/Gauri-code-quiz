@@ -1,13 +1,14 @@
 
-var startButton = document.querySelector("#startQuiz");
-var timer = document.querySelector("#timer");
-var mainContent = document.querySelector("#mainContent");
-var questionEl = document.querySelector("#title");
-var quizContent = document.querySelector("#quizContent");
-var resultDiv = document.querySelector("#answer");
-var scoreDiv = document.querySelector("#score");
-var highscoresDiv = document.querySelector("#highscores");
-var navhighscorelink = document.querySelector("#navhighscorelink");
+var startButton = document.querySelector("#startQuiz");     //Main page start button
+var timer = document.querySelector("#timer");   //Timer when quiz starts
+var mainContent = document.querySelector("#mainContent");   //Start page content div
+var questionEl = document.querySelector("#title");  //card title
+var quizContent = document.querySelector("#quizContent");   //Question options div
+var resultDiv = document.querySelector("#answer");  //Div for showing answer is correct/wrong
+var scoreDiv = document.querySelector("#score");    //Div for Displying final scores when quiz completed
+var highscoresDiv = document.querySelector("#highscores");  //Div for showing highscores
+var navhighscorelink = document.querySelector("#navhighscorelink");     //highscore navigation link
+var navlink = document.getElementById("navhighscorelink");
 
 var secondsLeft = 75;
 var questionIndex = 0 ;
@@ -46,7 +47,6 @@ function startQuiz(){
 
 }
 
-
 //function to start timer when quiz starts
 function startTimer(){
     
@@ -80,30 +80,24 @@ function buildQuestion(){
         return;
     }
     else{
-    
-        question = questions[questionIndex].title;
-        option1 = questions[questionIndex].choices[0];
-        option2 = questions[questionIndex].choices[1];
-        option3 =  questions[questionIndex].choices[2];
-        option4 =  questions[questionIndex].choices[3];
         ans =  questions[questionIndex].answer;
 
         //Display Question 
-        questionEl.innerHTML = question;
+        questionEl.innerHTML = questions[questionIndex].title;
         questionEl.setAttribute("class","text-left");
         questionEl.style.display= "block";
 
         //choice 1
-        ch1.textContent = "1. "+option1;
+        ch1.textContent = "1. "+questions[questionIndex].choices[0];
     
         //choice 2
-        ch2.textContent = "2. "+option2;
+        ch2.textContent = "2. "+questions[questionIndex].choices[1];
         
         //choice 3
-        ch3.textContent = "3. "+option3;
+        ch3.textContent = "3. "+questions[questionIndex].choices[2];
         
         //choice 4
-        ch4.textContent = "4. "+option4;
+        ch4.textContent = "4. "+questions[questionIndex].choices[3];
          
     }
     //Append choice buttons to divs
@@ -118,8 +112,7 @@ function buildQuestion(){
     quizContent.appendChild(dv3);
     quizContent.appendChild(dv4);
 
-    quizContent.style.display= "block";
-
+    quizContent.style.display= "block"; // Display options
 }
 
 // Event Listener for options buttons
@@ -155,10 +148,9 @@ quizContent.addEventListener("click",function(event){
 });
 
 
-//Function to show scores when quiz completes
+//Function to show score when quiz completes
 function viewResult(){  
-    
-    // resultDiv.style.display = "none";
+
     questionEl.innerHTML = "Test Completed!";
     questionEl.style.display= "block";
     
@@ -166,16 +158,16 @@ function viewResult(){
     s.textContent = "Your final Score : "+correct;
     scoreDiv.appendChild(s);
 
-    var form = document.createElement("form");
+    var form = document.createElement("form");      //Create form for storing highscore
 
-    var label = document.createElement("label");
-    label.textContent = "Enter Initials : ";
+    var label = document.createElement("label");    //label
+    label.textContent = "Enter Name : ";
 
-    var text = document.createElement("input");
-    text.setAttribute("id","initialsInput");
+    var text = document.createElement("input");     //textbox for inputting user name
+    text.setAttribute("id","nameInput");
     text.setAttribute("class","ml-3");
 
-    var scoreButton = document.createElement("button");
+    var scoreButton = document.createElement("button");     //Submit User score
     scoreButton.setAttribute("class","btn btn-primary rounded-pill mb-2 ml-3 mt-2");
     scoreButton.textContent = "Submit";
     
@@ -185,14 +177,14 @@ function viewResult(){
     
     scoreDiv.appendChild(form);
 
-    scoreButton.addEventListener("click",storeScores);
+    scoreButton.addEventListener("click",storeScores);  //Submit button click event listener calls storeScores()
 }
 
 //Function to store highscores
 function storeScores(event){
     
     event.preventDefault();
-    var userName = document.querySelector("#initialsInput");
+    var userName = document.querySelector("#nameInput");
 
     //Create user object for storing highscore
     var user = {
@@ -202,13 +194,13 @@ function storeScores(event){
 
     console.log(user);
 
-    previousScores = JSON.parse(localStorage.getItem("previousScores"));
+    previousScores = JSON.parse(localStorage.getItem("previousScores"));    //get User highscores array in localStorage if exists
     
     if(previousScores){
-        previousScores.push(user);
+        previousScores.push(user); //Push new user scores in array in localStorage
     }
     else{
-        previousScores = [user];
+        previousScores = [user];    //If No user scores stored in localStorage, create array to store user object
     }
     
     // set new submission
@@ -217,10 +209,12 @@ function storeScores(event){
     showHighScores(); // Called function to display highscores
 }
 
+
 //function to show highscores
 function showHighScores(){
    
     questionEl.innerHTML = "Highscores";
+    questionEl.setAttribute("class","text-center text-info");
     questionEl.style.display = "block";
     
     quizContent.style.display = "none";
@@ -229,19 +223,19 @@ function showHighScores(){
         // creates a <table> element and a <tbody> element
         var tbl = document.createElement("table");
         tbl.setAttribute("id","table");
-        var tblBody = document.createElement("tbody");
-
         tbl.style.textAlign = "center";
+
+        var tblBody = document.createElement("tbody");
 
         var row = document.createElement("tr");
         
-        var heading1 = document.createElement("th");
-        var headingText1 = document.createTextNode("Initials");
+        var heading1 = document.createElement("th");    //table heading 1
+        var headingText1 = document.createTextNode("Name");
         heading1.setAttribute("class","bg-info");
         heading1.appendChild(headingText1);
         row.appendChild(heading1);
 
-        var heading2 = document.createElement("th");
+        var heading2 = document.createElement("th");    //table heading 2
         var headingText2 = document.createTextNode("Score");
         heading2.appendChild(headingText2);
         heading2.setAttribute("class","bg-info");
@@ -249,19 +243,18 @@ function showHighScores(){
 
         tblBody.appendChild(row);
 
-        var userLength = previousScores.length;
+        var userLength = previousScores.length;     //PreviousScores array length stored in localStorage 
         
         // creating all cells
         for (var i = 0; i < userLength ; i++) {
+            
             // creates a table row
              var row = document.createElement("tr");
-
-            // Create a <td> element and a text node, make the text
-            // node the contents of the <td>, and put the <td> at
-            // the end of the table row
+        
             var uname = previousScores[i].name;
             var uscore = previousScores[i].score;
             
+            // Create a <td> element and a text node, make the textnode the contents of the <td>, and put the <td> at the end of the table row
             var cell1 = document.createElement("td");
             var cellText1 = document.createTextNode(uname);
             cell1.appendChild(cellText1);
@@ -272,7 +265,6 @@ function showHighScores(){
             cell2.appendChild(cellText2);
             row.appendChild(cell2);
       
-
             // add the row to the end of the table body
             tblBody.appendChild(row);
         }
@@ -280,24 +272,37 @@ function showHighScores(){
         // put the <tbody> in the <table>
         tbl.appendChild(tblBody);
         // appends <table> into <body>
-        highscoresDiv.appendChild(tbl);
+
         // sets the border attribute of tbl to 2;
         tbl.setAttribute("border", "2");
         tbl.setAttribute("width","100%");
+        
+        highscoresDiv.appendChild(tbl);
+
+        var btnDiv = document.createElement("div");
+        btnDiv.style.textAlign = "center";
+        highscoresDiv.appendChild(btnDiv);
+ 
+    navlink.style.display = "none";
     
+    // Go Back button to go to start page
     var goback = document.createElement("button");
     goback.setAttribute("class","btn btn-primary rounded-pill mb-2 mt-4 ml-2");
     goback.textContent = "Go Back";
-    highscoresDiv.appendChild(goback);
+    btnDiv.appendChild(goback);
+    
+    // Event listener for go back button opens index.html page
     goback.addEventListener("click",function(){
         window.location= "index.html";
     });
 
+    // Clear Highscores button : clears localStorage
     var clearscores = document.createElement("button");
     clearscores.setAttribute("class","btn btn-primary rounded-pill mb-2 mt-4 ml-2");
     clearscores.textContent = "Clear Highscores";
-    highscoresDiv.appendChild(clearscores);
+    btnDiv.appendChild(clearscores);
     
+    // Event Listener for clear highscores button
     clearscores.addEventListener("click",function(){
         localStorage.clear();
         var table = document.querySelector("#table");
@@ -306,14 +311,19 @@ function showHighScores(){
    
 }
 
+// Navigation link 'Highscores' event listener
 navhighscorelink.addEventListener("click",function(){
-    mainContent.style.display = "none";
-    var navlink = document.getElementById("navhighscorelink");
+    
+    mainContent.style.display = "none";  
     navlink.style.display = "none";
+    
     previousScores = JSON.parse(localStorage.getItem("previousScores"));
-    showHighScores();
+    
+    showHighScores(); //Calls function to show highscores
+
 });
 
+//Start button event listener on start page which starts quiz
 startButton.addEventListener("click",startQuiz);
 
 
