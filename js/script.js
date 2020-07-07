@@ -159,7 +159,8 @@ function storeScores(event){
     
     event.preventDefault();
     var userName = document.querySelector("#nameInput");
-        //Create user object for storing highscore
+
+      //Create user object for storing highscore
         var user = {
             name : userName.value.trim(),
             score : correct
@@ -180,7 +181,7 @@ function storeScores(event){
         localStorage.setItem("previousScores",JSON.stringify(previousScores));
 
         showHighScores(); // Called function to display highscores
-    
+
 }
 
 
