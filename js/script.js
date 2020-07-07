@@ -47,7 +47,7 @@ function startTimer(){
 
         timer.textContent = "Time : "+secondsLeft+ " sec";
         
-        if(secondsLeft === 0 || (questionIndex > totalQuestions-1)){
+        if(secondsLeft <= 0 || (questionIndex > totalQuestions-1)){
             
             resultDiv.style.display = "none";
             quizContent.style.display = "none";
