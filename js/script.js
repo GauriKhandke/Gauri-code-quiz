@@ -10,29 +10,20 @@ var highscoresDiv = document.querySelector("#highscores");  //Div for showing hi
 var navhighscorelink = document.querySelector("#navhighscorelink");     //highscore navigation link
 var navlink = document.getElementById("navhighscorelink");
 
-var secondsLeft = 75;
-var questionIndex = 0 ;
-var correct = 0;
+var secondsLeft = 75, questionIndex = 0,correct = 0 ;
 var totalQuestions = questions.length;
-var question , option1, option2, option3 ,option4 ,ans;
-var previousScores;
+var question , option1, option2, option3 ,option4 ,ans, previousScores;
+var choiceArray = [], divArray = [];
 
-//Create divs for button
-var dv1 = document.createElement("div");
-var dv2 = document.createElement("div");
-var dv3 = document.createElement("div");
-var dv4 = document.createElement("div");
-
-//Create buttons for choices
-var ch1 = document.createElement("button");
-var ch2 = document.createElement("button");
-var ch3 = document.createElement("button");
-var ch4 = document.createElement("button");
-
-ch1.setAttribute("class","btn btn-primary rounded-pill mb-2");
-ch2.setAttribute("class","btn btn-primary rounded-pill mb-2");
-ch3.setAttribute("class","btn btn-primary rounded-pill mb-2");
-ch4.setAttribute("class","btn btn-primary rounded-pill mb-2");
+//create buttons for choices
+for(var i = 0 ; i < 4 ; i++){
+    var dv = document.createElement("div");
+    var ch = document.createElement("button");
+    ch.setAttribute("data-index",i);
+    ch.setAttribute("class","btn btn-primary rounded-pill mb-2");
+    choiceArray.push(ch);
+    divArray.push(dv);
+}
 
 //Create p for showing answer Correct/Wrong
 var result = document.createElement("p");
@@ -87,31 +78,14 @@ function buildQuestion(){
         questionEl.setAttribute("class","text-left");
         questionEl.style.display= "block";
 
-        //choice 1
-        ch1.textContent = "1. "+questions[questionIndex].choices[0];
-    
-        //choice 2
-        ch2.textContent = "2. "+questions[questionIndex].choices[1];
-        
-        //choice 3
-        ch3.textContent = "3. "+questions[questionIndex].choices[2];
-        
-        //choice 4
-        ch4.textContent = "4. "+questions[questionIndex].choices[3];
+        for(var j = 0 ; j < 4 ; j++){
+            var index = choiceArray[j].getAttribute("data-index");
+            choiceArray[j].textContent = (+index+1) +". "+questions[questionIndex].choices[index];
+            divArray[j].appendChild(choiceArray[j]);
+            quizContent.appendChild(divArray[j]);
+        }
          
     }
-    //Append choice buttons to divs
-    dv1.appendChild(ch1);
-    dv2.appendChild(ch2);
-    dv3.appendChild(ch3);
-    dv4.appendChild(ch4);
-
-    //append divs to quizContent div
-    quizContent.appendChild(dv1);
-    quizContent.appendChild(dv2);
-    quizContent.appendChild(dv3);
-    quizContent.appendChild(dv4);
-
     quizContent.style.display= "block"; // Display options
 }
 
@@ -185,28 +159,28 @@ function storeScores(event){
     
     event.preventDefault();
     var userName = document.querySelector("#nameInput");
+        //Create user object for storing highscore
+        var user = {
+            name : userName.value.trim(),
+            score : correct
+        }
 
-    //Create user object for storing highscore
-    var user = {
-        name : userName.value.trim(),
-        score : correct
-    }
+        console.log(user);
 
-    console.log(user);
+        previousScores = JSON.parse(localStorage.getItem("previousScores"));    //get User highscores array in localStorage if exists
+        
+        if(previousScores){
+            previousScores.push(user); //Push new user scores in array in localStorage
+        }
+        else{
+            previousScores = [user];    //If No user scores stored in localStorage, create array to store user object
+        }
+        
+        // set new submission
+        localStorage.setItem("previousScores",JSON.stringify(previousScores));
 
-    previousScores = JSON.parse(localStorage.getItem("previousScores"));    //get User highscores array in localStorage if exists
+        showHighScores(); // Called function to display highscores
     
-    if(previousScores){
-        previousScores.push(user); //Push new user scores in array in localStorage
-    }
-    else{
-        previousScores = [user];    //If No user scores stored in localStorage, create array to store user object
-    }
-    
-    // set new submission
-    localStorage.setItem("previousScores",JSON.stringify(previousScores));
-
-    showHighScores(); // Called function to display highscores
 }
 
 
@@ -243,7 +217,10 @@ function showHighScores(){
 
         tblBody.appendChild(row);
 
-        var userLength = previousScores.length;     //PreviousScores array length stored in localStorage 
+        var userLength = 0;
+        if(previousScores) {
+            userLength = previousScores.length;     //PreviousScores array length stored in localStorage 
+        }
         
         // creating all cells
         for (var i = 0; i < userLength ; i++) {
@@ -270,7 +247,9 @@ function showHighScores(){
         }
 
         // put the <tbody> in the <table>
-        tbl.appendChild(tblBody);
+        if(userLength > 0){
+            tbl.appendChild(tblBody);
+        }
         // appends <table> into <body>
 
         // sets the border attribute of tbl to 2;
@@ -284,7 +263,7 @@ function showHighScores(){
         highscoresDiv.appendChild(btnDiv);
  
     navlink.style.display = "none";
-    
+
     // Go Back button to go to start page
     var goback = document.createElement("button");
     goback.setAttribute("class","btn btn-primary rounded-pill mb-2 mt-4 ml-2");
