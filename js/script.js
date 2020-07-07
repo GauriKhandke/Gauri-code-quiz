@@ -158,11 +158,16 @@ function viewResult(){
 function storeScores(event){
     
     event.preventDefault();
-    var userName = document.querySelector("#nameInput");
+    var userName = document.querySelector("#nameInput").value.trim();
+
+    if(userName === null || userName === '') {
+        alert("Please enter user name");
+        return;
+     }
 
       //Create user object for storing highscore
         var user = {
-            name : userName.value.trim(),
+            name : userName,
             score : correct
         }
 
