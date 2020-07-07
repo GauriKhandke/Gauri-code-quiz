@@ -6,12 +6,15 @@ var questionEl = document.querySelector("#title");
 var quizContent = document.querySelector("#quizContent");
 var resultDiv = document.querySelector("#answer");
 var scoreDiv = document.querySelector("#score");
+var highscoresDiv = document.querySelector("#highscores");
+var navhighscorelink = document.querySelector("#navhighscorelink");
 
 var secondsLeft = 75;
 var questionIndex = 0 ;
 var correct = 0;
 var totalQuestions = questions.length;
 var question , option1, option2, option3 ,option4 ,ans;
+var previousScores;
 
 //Create divs for button
 var dv1 = document.createElement("div");
@@ -56,6 +59,7 @@ function startTimer(){
         if(secondsLeft === 0 || (questionIndex > totalQuestions-1)){
             
             resultDiv.style.display = "none";
+            quizContent.style.display = "none";
             viewResult();
             clearInterval(timeInterval);
             timer.textContent = "";
@@ -73,7 +77,6 @@ function buildQuestion(){
     quizContent.style.display= "none";
   
     if(questionIndex > totalQuestions - 1){
-        // viewResult();
         return;
     }
     else{
@@ -169,7 +172,7 @@ function viewResult(){
     label.textContent = "Enter Initials : ";
 
     var text = document.createElement("input");
-    text.setAttribute("id","initials");
+    text.setAttribute("id","initialsInput");
     text.setAttribute("class","ml-3");
 
     var scoreButton = document.createElement("button");
@@ -182,13 +185,14 @@ function viewResult(){
     
     scoreDiv.appendChild(form);
 
-    scoreButton.addEventListener("click",viewHighScores);
+    scoreButton.addEventListener("click",storeScores);
 }
 
-//Function to show highscores
-function viewHighScores(){
+//Function to store highscores
+function storeScores(event){
     
-    var userName = document.querySelector("#initials");
+    event.preventDefault();
+    var userName = document.querySelector("#initialsInput");
 
     //Create user object for storing highscore
     var user = {
@@ -198,7 +202,7 @@ function viewHighScores(){
 
     console.log(user);
 
-    var previousScores = JSON.parse(localStorage.getItem("previousScores"));
+    previousScores = JSON.parse(localStorage.getItem("previousScores"));
     
     if(previousScores){
         previousScores.push(user);
@@ -209,8 +213,106 @@ function viewHighScores(){
     
     // set new submission
     localStorage.setItem("previousScores",JSON.stringify(previousScores));
+
+    showHighScores(); // Called function to display highscores
 }
 
+//function to show highscores
+function showHighScores(){
+   
+    questionEl.innerHTML = "Highscores";
+    questionEl.style.display = "block";
+    
+    quizContent.style.display = "none";
+    scoreDiv.style.display = "none";
+
+        // creates a <table> element and a <tbody> element
+        var tbl = document.createElement("table");
+        tbl.setAttribute("id","table");
+        var tblBody = document.createElement("tbody");
+
+        tbl.style.textAlign = "center";
+
+        var row = document.createElement("tr");
+        
+        var heading1 = document.createElement("th");
+        var headingText1 = document.createTextNode("Initials");
+        heading1.setAttribute("class","bg-info");
+        heading1.appendChild(headingText1);
+        row.appendChild(heading1);
+
+        var heading2 = document.createElement("th");
+        var headingText2 = document.createTextNode("Score");
+        heading2.appendChild(headingText2);
+        heading2.setAttribute("class","bg-info");
+        row.appendChild(heading2);
+
+        tblBody.appendChild(row);
+
+        var userLength = previousScores.length;
+        
+        // creating all cells
+        for (var i = 0; i < userLength ; i++) {
+            // creates a table row
+             var row = document.createElement("tr");
+
+            // Create a <td> element and a text node, make the text
+            // node the contents of the <td>, and put the <td> at
+            // the end of the table row
+            var uname = previousScores[i].name;
+            var uscore = previousScores[i].score;
+            
+            var cell1 = document.createElement("td");
+            var cellText1 = document.createTextNode(uname);
+            cell1.appendChild(cellText1);
+            row.appendChild(cell1);
+
+            var cell2 = document.createElement("td");
+            var cellText2 = document.createTextNode(uscore);
+            cell2.appendChild(cellText2);
+            row.appendChild(cell2);
+      
+
+            // add the row to the end of the table body
+            tblBody.appendChild(row);
+        }
+
+        // put the <tbody> in the <table>
+        tbl.appendChild(tblBody);
+        // appends <table> into <body>
+        highscoresDiv.appendChild(tbl);
+        // sets the border attribute of tbl to 2;
+        tbl.setAttribute("border", "2");
+        tbl.setAttribute("width","100%");
+    
+    var goback = document.createElement("button");
+    goback.setAttribute("class","btn btn-primary rounded-pill mb-2 mt-4 ml-2");
+    goback.textContent = "Go Back";
+    highscoresDiv.appendChild(goback);
+    goback.addEventListener("click",function(){
+        window.location= "index.html";
+    });
+
+    var clearscores = document.createElement("button");
+    clearscores.setAttribute("class","btn btn-primary rounded-pill mb-2 mt-4 ml-2");
+    clearscores.textContent = "Clear Highscores";
+    highscoresDiv.appendChild(clearscores);
+    
+    clearscores.addEventListener("click",function(){
+        localStorage.clear();
+        var table = document.querySelector("#table");
+        table.style.display = "none";
+    });
+   
+}
+
+navhighscorelink.addEventListener("click",function(){
+    mainContent.style.display = "none";
+    var navlink = document.getElementById("navhighscorelink");
+    navlink.style.display = "none";
+    previousScores = JSON.parse(localStorage.getItem("previousScores"));
+    showHighScores();
+});
 
 startButton.addEventListener("click",startQuiz);
 

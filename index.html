@@ -35,7 +35,7 @@
         <!-- Navigation Bar -->
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             
-                <a class="nav-link" href="#">High Scores</a>
+                <a class="nav-link text-primary" id = "navhighscorelink" >High Scores</a>
 
                 <span class="ml-auto" id="timer"></span>
 
@@ -94,11 +94,12 @@
                                                     Try to answer the following Javascript fundamental questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!  
                                                 </h5>
                                                 <div class="text-center">
-                                                    <button type="submit" class="btn bg-primary text-white rounded-pill mb-2" id="startQuiz">Start Quiz</button>
+                                                    <button type="submit" id="startQuiz" class="btn bg-primary text-white rounded-pill mb-2">Start Quiz</button>
                                                 </div>
                                             </div>
                                             <div id = "quizContent"></div>
                                             <div id = "score"></div>
+                                            <div id = "highscores"> </div>
                                         
 
                                         </div>
@@ -106,7 +107,7 @@
                                    
                                     
                                     <div id="answer">
-                                        <!-- <hr class="line"> -->
+                                         <hr class="line">
                                     </div>    
 
                                 </div>
