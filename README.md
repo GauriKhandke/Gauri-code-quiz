@@ -33,12 +33,12 @@ In hiring process or in any exam, candidate is asked to complete multiple choice
 
 # Technology: 
 
-#### Javascript : 
+#### [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript): 
 * JavaScript is a cross-platform, object-oriented scripting language used to make webpages interactive.
 * JavaScript(JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. 
 * With the HTML DOM, JavaScript can access and change all the elements of an HTML document.
 
-#### Bootstrap : 
+#### [Bootstrap](https://getbootstrap.com/) : 
 
 * Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains CSS and (optionally) JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
 
