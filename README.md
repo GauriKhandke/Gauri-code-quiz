@@ -1,21 +1,37 @@
-# Gauri-code-quiz
-UW Coding Bootcamp HW-04 : Web API Code Quiz
+# Code Quiz
+![MIT License](https://img.shields.io/badge/license-MIT-green)
 
-# Goal 
+# Description 
 
-Build a code quiz with multiple choice questions.
+A timer-based quiz application having multiple choice questions that stores high scores of multiple users. Answering incorrectly results in penality of time.
+
+## Deployed Website : 
+[Code Quiz](https://gaurikhandke.github.io/Gauri-code-quiz/)
+
+# Table of Contents
+* [Demo](#demo)
+* [Technology](#technology)
+* [Usage](#usage)
+* [Features](#features)
+* [License](#license)
+* [Contribution](#contribution)
+* [Questions](#questions)
 
 # Motivation
 
-In hiring process or in any exam, candidate is asked to complete multiple choice questions assessment. 
+In hiring process or in any exam, candidate is asked to complete multiple choice questions assessment.
+
+# Demo : 
+
+![Code Quiz](images/CodeQuiz.gif)
 
 # Screenshots
 
 |Medium Devices/ Laptop|Small Devices/ Tablet|Extra Small Devices/Phone
 |--|--|--
-|![Laptop](images/Laptop.png)|![Tablet](images/Tablet.png)|![Phone](images/Mobile.png)
+|![Laptop](images/CodeQuiz.png)|![Tablet](images/Tablet-ipad.png)|![Phone](images/Mobile_iphone.png)
 
-# Tech/ Frameworks Used : 
+# Technology: 
 
 #### Javascript : 
 * JavaScript is a cross-platform, object-oriented scripting language used to make webpages interactive.
@@ -53,5 +69,13 @@ In hiring process or in any exam, candidate is asked to complete multiple choice
 
 5. Timer starts when quiz starts. Timer stops when quiz is completed or when timer reaches zero and final score is shown.
 
-# Deployed Website : 
-https://gaurikhandke.github.io/Gauri-code-quiz/
+# License
+
+This project is licensed under MIT License.
+
+# Contribution
+
+Please let me know how I can improve this project. Issues and pull requests are always welcome.
+
+# Questions :
+* If you have any questions about the repo, please submit issue [here](https://github.com/GauriKhandke/Gauri-code-quiz/issues/new) or [email](mailto:khandkegauri@gmail.com) me.
